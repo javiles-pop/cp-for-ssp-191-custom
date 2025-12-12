@@ -1,18 +1,20 @@
-# FWISSSP - Digital Signage Management System
+# FWISSSP - Digital Signage Content Player for Samsung SSSP
 
-A comprehensive digital signage management system with monitoring, hardware integration, and multi-platform device support.
+A modified version of our digital signage content player for Samsung SSSP based on version 1.9.1, updated to fix FWI Services issues when running on Samsung QMR displays.
 
 ## Overview
 
-FWISSSP is a web-based digital signage solution that provides device monitoring, content management, and hardware integration for Samsung SSSP displays and other digital signage devices.
+This project is an enhanced version of the FWI digital signage content player specifically designed for Samsung SSSP (Smart Signage Platform) devices. The original v1.9.1 codebase has been modified to resolve critical monitoring and hardware integration issues encountered on Samsung QMR displays.
 
 ## Key Features
 
+- **Samsung SSSP Integration**: Native Samsung Smart Signage Platform support
+- **QMR Display Compatibility**: Specifically tested and fixed for Samsung QMR displays
 - **Device Monitoring**: Real-time status monitoring with automated uploads
-- **Hardware Integration**: Samsung SSSP API integration for device control
-- **Screenshot Capture**: Automated screenshot functionality with error handling
+- **Hardware Information Retrieval**: Active Samsung API calls for IP, MAC, and serial data
+- **Screenshot Capture**: Automated screenshot functionality with QMR orientation error handling
 - **Scheduler System**: Intelligent log and data upload scheduling
-- **Multi-Platform Support**: Works across different digital signage hardware
+- **FWI Services Integration**: Fixed monitoring system for proper FWI Services communication
 - **Comprehensive Logging**: Detailed logging system for debugging and monitoring
 
 ## Recent Fixes & Improvements
@@ -27,6 +29,21 @@ This project includes comprehensive fixes for monitoring system issues:
 ✅ **Comprehensive Logging** - Full debugging capability throughout system  
 
 See [MONITORING_FIXES.md](MONITORING_FIXES.md) for detailed documentation of all fixes.
+
+## Version History
+
+**Base Version**: FWI Digital Signage Content Player v1.9.1  
+**Modified Version**: v1.9.1-QMR-FIXED  
+**Target Hardware**: Samsung QMR displays with SSSP support  
+**Primary Fixes**: FWI Services monitoring system integration  
+
+## Samsung QMR Specific Improvements
+
+- **Orientation API Error Handling**: Fixed "Input Source is not Existed" errors during screenshot capture
+- **Hardware Information Retrieval**: Active Samsung API calls to populate IP, MAC, and serial number data
+- **FWI Services Communication**: Resolved monitoring system failures specific to QMR hardware
+- **UI Event Binding**: Fixed timing issues with DOM element interactions on QMR displays
+- **Upload Scheduling**: Corrected immediate upload bugs in log scheduler system
 
 ## Project Structure
 
