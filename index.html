@@ -1,0 +1,2760 @@
+<!DOCTYPE html>
+<html lang="en" class="force_169">
+  <head>
+    <title>FWI Content Player for SSSP</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Styles -->
+    <link href="./css/styles.css" rel="stylesheet" type="text/css" />
+    <!-- Custom Font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Code+Pro"
+      rel="stylesheet"
+    />
+
+    <!-- JQuery library -->
+    <script src="./js/jquery/jquery-3.3.1.min.js"></script>
+
+    <script type='text/javascript' src='$WEBAPIS/webapis/webapis.js'></script>
+<script type="text/javascript" src="$B2BAPIS/b2bapis/b2bapis.js"></script>
+
+    <!-- AWS/IOT/Aes sdk  -->
+    <script src="./js/sdk/aws-iot-sdk-browser-bundle-min.js"></script>
+    <script src="./js/sdk/aws-cognito-sdk.min.js"></script>
+    <script src="./js/sdk/amazon-cognito-identity.min.js"></script>
+    <script src="./js/sdk/aes.js"></script>
+    <script src="./js/sdk/dateFns.js"></script>
+
+    <!-- Hardware specific Functions -->
+    <script src="./js/sssp.js"></script>
+
+    <!-- Localization routines. -->
+    <script src="./js/localization.js"></script>
+
+    <!-- Validate + Helper functions -->
+    <script src="./js/validate.js"></script>
+    <script src="./js/helper.js"></script>
+    <!-- Remote Control Command Routing -->
+    <script src="./js/remote.js"></script>
+    <!-- Settings | Overall Settings functions -->
+    <script src="./js/settings.js"></script>
+    <!-- Settings Tabs -->
+    <script src="./js/s_deploy.js"></script>
+    <!-- DevItems -->
+    <script src="./js/dev.js"></script>
+
+    <script src="./js/s_software.js"></script>
+    <script src="./js/s_hardware.js"></script>
+    <script src="./js/s_advanced.js"></script>
+    <script src="./js/s_monitoring.js"></script>
+    <script src="./js/s_about.js"></script>
+    <script src="./js/s_provision.js"></script>
+    <script src="./js/shadow.js"></script>
+
+    <!-- Timer -->
+    <script src="./js/scheduler.js"></script>
+    <!-- Remote Commands From CMW -->
+    <script src="./js/fwi_custom.js"></script>
+    <!-- Main App Init file -->
+    <script src="./js/main.js"></script>
+
+    <script src="./js/s_pre-deploy.js"></script>
+  </head>
+  <body>
+    <!-- <div style="position: absolute; height: 100px; width: 100px; left: 25%; top: 0; background-color: red; z-index: 999999999999999999;"></div> -->
+    <ul id="debug_logs" class="debug-logs"></ul>
+    <!-- Dev only -->
+    <!-- <p id="sizeEl" style="position: absolute; top: 0; left: 0; height: 25%; width: 25%; background-color: rgba(255, 128, 128, 0.8); z-index: 99999999999999999999999999999999; overflow-y: auto;"></p> -->
+    <!-- Iframe Player -->
+    <div class="wrap_player max_size">
+      <iframe
+        id="player_iframe"
+        name="player_iframe"
+        class="player_iframe"
+        src=""
+      ></iframe>
+    </div>
+
+    <!-- Hot-spot for entering the configuration screen using a mouse. -->
+    <div class="fwi_homeButton">&nbsp;</div>
+
+    <!-- Checking Player Registration -->
+    <div class="wrap_playerRegistrationModal">
+      <div class="modal_playerRegistration">
+        <form>
+          <div class="fwi_logo">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              viewBox="0 0 45.4 19.9"
+            >
+              <defs><path id="a" d="M39.7 0h5.7v19.9h-5.7z" /></defs>
+              <clipPath id="b">
+                <use xlink:href="#a" overflow="visible" />
+              </clipPath>
+              <path clip-path="url(#b)" d="M34.7-5h15.7v29.9H34.7z" />
+              <defs><path id="c" d="M28.9 19.9L34 0h5.7l-5.1 19.9z" /></defs>
+              <clipPath id="d">
+                <use xlink:href="#c" overflow="visible" />
+              </clipPath>
+              <path
+                opacity=".5"
+                clip-path="url(#d)"
+                d="M23.9-5h20.8v29.9H23.9z"
+              />
+              <g>
+                <defs>
+                  <path id="e" d="M34.6 19.9L29.5 0h-5.7l5.1 19.9z" />
+                </defs>
+                <clipPath id="f">
+                  <use xlink:href="#e" overflow="visible" />
+                </clipPath>
+                <path clip-path="url(#f)" d="M18.8-5h20.8v29.9H18.8z" />
+              </g>
+              <g>
+                <defs>
+                  <path id="g" d="M18.7 19.9L23.8 0h5.7l-5.1 19.9z" />
+                </defs>
+                <clipPath id="h">
+                  <use xlink:href="#g" overflow="visible" />
+                </clipPath>
+                <path
+                  opacity=".5"
+                  clip-path="url(#h)"
+                  d="M13.7-5h20.8v29.9H13.7z"
+                />
+              </g>
+              <g>
+                <defs>
+                  <path id="i" d="M24.4 19.9L19.3 0h-5.7l5.1 19.9z" />
+                </defs>
+                <clipPath id="j">
+                  <use xlink:href="#i" overflow="visible" />
+                </clipPath>
+                <path clip-path="url(#j)" d="M8.6-5h20.8v29.9H8.6z" />
+              </g>
+              <g>
+                <defs>
+                  <path id="k" d="M13.6 5V0H0v19.9h5.7v-6.7h7.9v-5H5.7V5z" />
+                </defs>
+                <clipPath id="l">
+                  <use xlink:href="#k" overflow="visible" />
+                </clipPath>
+                <path clip-path="url(#l)" d="M-5-5h23.6v29.9H-5z" />
+              </g>
+            </svg>
+          </div>
+
+          <h2>Checking Player Registration</h2>
+
+          <div class="modal_settings_row">
+            <div class="player_registration_status_msg _stateError">
+              <p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 426.667 426.667"
+                  width="40"
+                  height="40"
+                >
+                  <path
+                    d="M213.333 0C95.573 0 0 95.573 0 213.333s95.573 213.333 213.333 213.333 213.333-95.573 213.333-213.333S331.093 0 213.333 0zm21.334 320H192v-42.667h42.667V320zm0-85.333H192v-128h42.667v128z"
+                    fill="#d85f5b"
+                  />
+                </svg>
+                <span>No network, no external communication</span>
+              </p>
+            </div>
+            <div class="player_registration_status_msg _stateLoading">
+              <div class="lds-css ng-scope">
+                <div style="width:100%;height:100%" class="lds-rolling">
+                  <div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="fwi_button_group _stateError">
+              <button
+                data-remote-index="y"
+                class="retry_player_registration"
+                type="button"
+              >
+                <span>Retry</span>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="version_bug">
+          Player Version: <span class="player_version">1.9.1</span><span class="build_number">19</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enter 6 digit Invite CODE-->
+    <div class="wrap_inviteCode">
+      <div class="modal_inviteCode">
+        <div class="fwi_logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 45.4 19.9"
+          >
+            <defs><path id="a2" d="M39.7 0h5.7v19.9h-5.7z" /></defs>
+            <clipPath id="b2">
+              <use xlink:href="#a2" overflow="visible" />
+            </clipPath>
+            <path clip-path="url(#b2)" d="M34.7-5h15.7v29.9H34.7z" />
+            <defs><path id="c2" d="M28.9 19.9L34 0h5.7l-5.1 19.9z" /></defs>
+            <clipPath id="d2">
+              <use xlink:href="#c2" overflow="visible" />
+            </clipPath>
+            <path
+              opacity=".5"
+              clip-path="url(#d2)"
+              d="M23.9-5h20.8v29.9H23.9z"
+            />
+            <g>
+              <defs><path id="e2" d="M34.6 19.9L29.5 0h-5.7l5.1 19.9z" /></defs>
+              <clipPath id="f2">
+                <use xlink:href="#e2" overflow="visible" />
+              </clipPath>
+              <path clip-path="url(#f2)" d="M18.8-5h20.8v29.9H18.8z" />
+            </g>
+            <g>
+              <defs><path id="g2" d="M18.7 19.9L23.8 0h5.7l-5.1 19.9z" /></defs>
+              <clipPath id="h2">
+                <use xlink:href="#g2" overflow="visible" />
+              </clipPath>
+              <path
+                opacity=".5"
+                clip-path="url(#h2)"
+                d="M13.7-5h20.8v29.9H13.7z"
+              />
+            </g>
+            <g>
+              <defs><path id="i2" d="M24.4 19.9L19.3 0h-5.7l5.1 19.9z" /></defs>
+              <clipPath id="j2">
+                <use xlink:href="#i2" overflow="visible" />
+              </clipPath>
+              <path clip-path="url(#j2)" d="M8.6-5h20.8v29.9H8.6z" />
+            </g>
+            <g>
+              <defs>
+                <path id="k2" d="M13.6 5V0H0v19.9h5.7v-6.7h7.9v-5H5.7V5z" />
+              </defs>
+              <clipPath id="l2">
+                <use xlink:href="#k2" overflow="visible" />
+              </clipPath>
+              <path clip-path="url(#l2)" d="M-5-5h23.6v29.9H-5z" />
+            </g>
+          </svg>
+        </div>
+
+        <h2>Enter Invite Code</h2>
+
+        <div class="modal_settings_row">
+          <div class="fwi_input_group numbers grouped">
+            <input
+              data-remote-index="y"
+              type="text"
+              name="invite_code"
+              maxlength="6"
+              class="modal_access_digit invite_code"
+              placeholder="------"
+              autofocus
+            />
+          </div>
+
+          <div class="wrap_inviteCode_error_icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 426.667 426.667"
+              width="40"
+              height="40"
+            >
+              <path
+                d="M213.333 0C95.573 0 0 95.573 0 213.333s95.573 213.333 213.333 213.333 213.333-95.573 213.333-213.333S331.093 0 213.333 0zm21.334 320H192v-42.667h42.667V320zm0-85.333H192v-128h42.667v128z"
+                fill="#d85f5b"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <div class="invite_code_handlers">
+          <div class="modal_settings_row">
+            <button
+              data-remote-index="y"
+              class="invite_code_verify"
+              id="invite_code_verify"
+              disabled
+            >
+              <span>Next</span>
+            </button>
+          </div>
+
+          <div class="invite_code_error_message"></div>
+
+          <div id="invite-code-auth-spinner" class="lds-css ng-scope">
+            <div style="width:100%;height:100%" class="lds-rolling">
+              <div></div>
+            </div>
+          </div>
+
+          <div class="activation-code-spacer"></div>
+        </div>
+
+        <div class="version_bug">
+          Player Version: <span class="player_version">1.9.1</span><span class="build_number">19</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enter Access Code Modal For Settings -->
+    <div class="wrap_access_code max_size">
+      <div class="modal_bg">
+        <div class="access_code_enter_modal is_modal modal_1">
+          <h2>Enter Access Code</h2>
+          <div class="modal_settings_row">
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                name="access_code1"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code2"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code3"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code4"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code5"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code6"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+            <div class="fwi_input_group numbers large">
+              <input
+                data-remote-index="y"
+                type="number"
+                disabled
+                name="access_code7"
+                readonly
+                class="modal_access_digit digit_1_9"
+              />
+            </div>
+          </div>
+
+          <div class="modal_settings_row">
+            <div class="modal_message"><p></p></div>
+            <div class="fwi_button_group">
+              <button data-remote-index="y" class="access_code_cancel">
+                <span>Back to Player</span>
+              </button>
+              <button
+                data-remote-index="y"
+                class="access_code_done color_riverbed"
+              >
+                <span>Verify</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom activation code modal dialog for Device Activation. -->
+    <div class="device_activation_code_dialog max_size">
+      <div class="modal_bg">
+        <div class="activation_code_enter_modal is_modal modal_1">
+          <h2>Activation Code</h2>
+          <!-- FIXME KJO Localize -->
+          <div class="modal_settings_row">
+            <input
+              id="activation_code"
+              class="Code"
+              type="text"
+              name="activation_code"
+              size="6"
+              maxlength="6"
+            />
+          </div>
+
+          <div class="modal_settings_row">
+            <div class="modal_message"><p></p></div>
+            <div class="fwi_button_group">
+              <button
+                data-remote-index="y"
+                class="access_code_done color_riverbed"
+              >
+                <span>Activate</span></button
+              ><!-- FIXME KJO Localize -->
+            </div>
+          </div>
+          <div class="version_bug">
+            Player Version: <span class="player_version">1.9.1</span><span class="build_number">19</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom activation code modal dialog for Device Activation. -->
+    <div class="device__pre-deployment__dialog max_size">
+      <div class="modal_bg">
+        <div class="activation_code_enter_modal modal">
+          <div
+            class="pre-deploy__network-status network-status network-status__disconnected"
+          >
+            <span></span>
+          </div>
+          <div class="section">
+            <div class="section__title">
+              Deployment URL
+            </div>
+            <label>
+              <div class="fwi_switch_group http-selector">
+                <label
+                  data-remote-index="y"
+                  class="http-switch switch require_enable software_updates_ampm_switch"
+                >
+                  <input
+                    class="switch-input require_enable http-input"
+                    name="pre-deployment_http"
+                    type="checkbox"
+                  />
+                  <span
+                    class="switch-label"
+                    data-on="https://"
+                    data-off="http://"
+                  ></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </div>
+              <div class="settings_row pre-deploy--field">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url focused-input"
+                    name="pre-deployment_url"
+                    value=""
+                    placeholder="www.example.com"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="pre-settings status_msg"><span></span></div>
+            </label>
+          </div>
+          <div class="section__divider"></div>
+          <div class="section">
+            <div class="section__title">
+              FWI Services (Optional)
+            </div>
+            <label>
+              <div class="fwi_switch_group http-selector">
+                <label
+                  data-remote-index="y"
+                  class="http-switch switch require_enable software_updates_ampm_switch"
+                >
+                  <input
+                    class="switch-input require_enable http-input"
+                    name="pre-fwiservices_http"
+                    type="checkbox"
+                  />
+                  <span
+                    class="switch-label"
+                    data-on="https://"
+                    data-off="http://"
+                  ></span>
+                  <span class="switch-handle"></span>
+                </label>
+              </div>
+              <div class="settings_row pre-deploy--field">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url"
+                    name="pre-fwiservices_url"
+                    value=""
+                    placeholder="www.example.com"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="pre-settings status_msg"><span></span></div>
+            </label>
+            <label>
+              <span class="pre-deployment__label">
+                Company
+              </span>
+              <div class="settings_row pre-deploy--field">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url"
+                    name="pre-fwiservices_company"
+                    value=""
+                    placeholder="company"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="pre-settings status_msg"><span></span></div>
+            </label>
+            <label>
+              <span class="pre-deployment__label">
+                Username
+              </span>
+              <div class="settings_row pre-deploy--field">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url"
+                    name="pre-fwiservices_username"
+                    value=""
+                    placeholder="username"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <div class="pre-settings status_msg"><span></span></div>
+            </label>
+            <label>
+              <span class="pre-deployment__label">
+                Password
+              </span>
+              <div class="settings_row pre-deploy--field">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url"
+                    name="pre-fwiservices_password"
+                    type="password"
+                    value=""
+                    placeholder="••••••••"
+                  />
+                </div>
+              </div>
+              <div class="pre-settings status_msg"><span></span></div>
+            </label>
+          </div>
+          <div class="pre-deploy__buttons">
+            <div id="pre-deploy_messages"></div>
+            <button
+              data-remote-index="y"
+              id="pre-deploy_verify"
+              class="pre-deploy_verify"
+              disabled
+            >
+              <span>
+                Verify & Save
+              </span>
+            </button>
+          </div>
+          <div class="version_bug">
+            Player Version: <span class="player_version">1.9.1</span><span class="build_number">19</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div class="wrap_settings max_size" style="display:none">
+      <div class="settings_inner force_center">
+        <!-- Settings Sidebar -->
+        <div class="settings_sidebar">
+          <div class="logo">
+            <svg
+              width="145px"
+              height="31px"
+              viewBox="0 0 145 31"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+              <desc>Created with Sketch.</desc>
+              <defs></defs>
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <g id="FWI-Logo-Full---White" fill="#FFFFFF">
+                  <g id="FWI-with-Name">
+                    <g
+                      id="Interactive"
+                      transform="translate(72.500000, 20.923077)"
+                    >
+                      <polygon
+                        id="Fill-21"
+                        points="0.226101695 9.96110769 1.8395339 9.96110769 1.8395339 1.30264615 0.226101695 1.30264615"
+                      ></polygon>
+                      <polygon
+                        id="Fill-22"
+                        points="3.13679237 1.30227692 4.70107203 1.30227692 8.4587839 7.20381538 8.48336017 7.20381538 8.48336017 1.30227692 10.0353517 1.30227692 10.0353517 9.96073846 8.4587839 9.96073846 4.71336017 4.04689231 4.6887839 4.04689231 4.6887839 9.96073846 3.13679237 9.96073846"
+                      ></polygon>
+                      <polygon
+                        id="Fill-23"
+                        points="13.6796441 2.68627692 11.1949831 2.68627692 11.1949831 1.30166154 17.7654492 1.30166154 17.7654492 2.68627692 15.2807881 2.68627692 15.2807881 9.96012308 13.6796441 9.96012308"
+                      ></polygon>
+                      <polygon
+                        id="Fill-24"
+                        points="18.9029619 1.31458462 24.8958856 1.31458462 24.8958856 2.73243077 20.5139364 2.73243077 20.5139364 4.8432 24.3994449 4.8432 24.3994449 6.26104615 20.5139364 6.26104615 20.5139364 8.54166154 24.9450381 8.54166154 24.9450381 9.96073846 18.9029619 9.96073846"
+                      ></polygon>
+                      <path
+                        d="M29.2804153,5.36418462 C30.2118559,5.36418462 30.8299492,4.91618462 30.8299492,4.01772308 C30.8299492,2.99987692 30.1516441,2.67249231 29.255839,2.67249231 L27.6706695,2.67249231 L27.6706695,5.36418462 L29.2804153,5.36418462 Z M26.0596949,1.31495385 L29.473339,1.31495385 C31.0966017,1.31495385 32.4040593,2.26018462 32.4040593,4.03003077 C32.4040593,5.06018462 31.8596949,6.12849231 30.6972373,6.53956923 L32.8402881,9.95987692 L31.0843136,9.95987692 L29.0629153,6.72295385 L27.6706695,6.72295385 L27.6706695,9.95987692 L26.0596949,9.95987692 L26.0596949,1.31495385 Z"
+                        id="Fill-25"
+                      ></path>
+                      <path
+                        d="M37.8512669,6.73476923 L36.67775,3.26646154 L36.6531737,3.26646154 L35.4661398,6.73476923 L37.8512669,6.73476923 Z M35.9871568,1.30215385 L37.4641907,1.30215385 L40.6480466,9.96061538 L38.9412246,9.96061538 L38.3108432,8.11692308 L35.0188517,8.11692308 L34.3638941,9.96061538 L32.7787246,9.96061538 L35.9871568,1.30215385 Z"
+                        id="Fill-26"
+                      ></path>
+                      <path
+                        d="M40.6812246,7.09476923 L40.6812246,4.36984615 C40.6812246,2.35015385 42.220928,1.22769231 44.0813517,1.22769231 C45.7046144,1.22769231 47.3278771,2.136 47.3278771,4.03507692 L47.3278771,4.29846154 L45.8238093,4.29846154 L45.8238093,4.17907692 C45.8238093,3.06769231 44.8579619,2.63692308 44.0813517,2.63692308 C43.2703347,2.63692308 42.2565636,3.06769231 42.2565636,4.28738462 L42.2565636,7.01107692 C42.2565636,8.04 43.1400805,8.62461538 44.1415636,8.62461538 C44.9169449,8.62461538 45.8238093,8.19384615 45.8238093,7.08246154 L45.8238093,6.96307692 L47.3278771,6.96307692 L47.3278771,7.22646154 C47.3278771,9.12676923 45.7648263,10.0350769 44.1415636,10.0350769 C42.2921992,10.0350769 40.6812246,8.99507692 40.6812246,7.09476923"
+                        id="Fill-27"
+                      ></path>
+                      <polygon
+                        id="Fill-28"
+                        points="50.3892203 2.68627692 47.9045593 2.68627692 47.9045593 1.30166154 54.4750254 1.30166154 54.4750254 2.68627692 51.9903644 2.68627692 51.9903644 9.96012308 50.3892203 9.96012308"
+                      ></polygon>
+                      <polygon
+                        id="Fill-29"
+                        points="55.6124153 9.96110769 57.2258475 9.96110769 57.2258475 1.30264615 55.6124153 1.30264615"
+                      ></polygon>
+                      <polygon
+                        id="Fill-30"
+                        points="58.2246271 1.30227692 59.9633983 1.30227692 61.9073814 7.65058462 61.9307288 7.65058462 63.8747119 1.30227692 65.4697119 1.30227692 62.6200932 9.96073846 61.0496695 9.96073846"
+                      ></polygon>
+                      <polygon
+                        id="Fill-31"
+                        points="66.4498136 1.30227692 72.451339 1.30227692 72.451339 2.72258462 68.0632458 2.72258462 68.0632458 4.83581538 71.9536695 4.83581538 71.9536695 6.25612308 68.0632458 6.25612308 68.0632458 8.5392 72.5004915 8.5392 72.5004915 9.96073846 66.4498136 9.96073846"
+                      ></polygon>
+                    </g>
+                    <g id="Winds" transform="translate(71.271186, 11.076923)">
+                      <polygon
+                        id="Fill-14"
+                        points="0.81654661 0.115692308 2.45824153 0.115692308 3.81116525 6.15015385 3.83451271 6.15015385 5.41722458 0.115692308 6.78120763 0.115692308 8.35040254 6.18584615 8.37497881 6.18584615 9.75125 0.115692308 11.3683686 0.115692308 9.13561441 8.77415385 7.64997881 8.77415385 6.10536017 2.69169231 6.0807839 2.69169231 4.53493644 8.77415385 3.03824153 8.77415385"
+                      ></polygon>
+                      <polygon
+                        id="Fill-16"
+                        points="12.4233051 8.77464615 14.0367373 8.77464615 14.0367373 0.116184615 12.4233051 0.116184615"
+                      ></polygon>
+                      <polygon
+                        id="Fill-18"
+                        points="15.3511992 0.115692308 16.9154788 0.115692308 20.6731907 6.01723077 20.6977669 6.01723077 20.6977669 0.115692308 22.2497585 0.115692308 22.2497585 8.77415385 20.6731907 8.77415385 16.9277669 2.86030769 16.9031907 2.86030769 16.9031907 8.77415385 15.3511992 8.77415385"
+                      ></polygon>
+                      <path
+                        d="M26.8868093,7.35273846 C27.7113432,7.35273846 28.741089,6.91581538 28.741089,5.67766154 L28.741089,3.17550769 C28.741089,2.13058462 27.8452839,1.53612308 26.8265975,1.53612308 L25.1775297,1.53612308 L25.1775297,7.35273846 L26.8868093,7.35273846 Z M23.5640975,0.115815385 L26.9359619,0.115815385 C28.8148178,0.115815385 30.3422331,1.34166154 30.3422331,3.27273846 L30.3422331,5.5792 C30.3422331,7.63212308 28.6575297,8.77304615 26.9470212,8.77304615 L23.5640975,8.77304615 L23.5640975,0.115815385 Z"
+                        id="Fill-19"
+                      ></path>
+                      <path
+                        d="M30.8450636,6.74190769 L32.279089,6.17944615 C32.6022669,7.00529231 33.3788771,7.47175385 34.3336653,7.47175385 C35.1938347,7.47175385 36.0073093,7.13698462 36.0073093,6.34683077 C36.0073093,5.71298462 35.4936653,5.42498462 34.83625,5.23421538 L33.4022246,4.88713846 C32.2668008,4.60036923 31.3587076,4.08590769 31.3587076,2.57698462 C31.3587076,0.973292308 32.7570975,0.0403692308 34.4061653,0.0403692308 C35.8279025,0.0403692308 36.8551907,0.506830769 37.4044703,1.78806154 L36.101928,2.3616 C35.7320551,1.64406154 35.0992161,1.38067692 34.2746822,1.38067692 C33.5816314,1.38067692 32.911928,1.69206154 32.911928,2.4576 C32.911928,3.05575385 33.4857839,3.33144615 34.1542585,3.51113846 L35.6128602,3.87052308 C36.6278602,4.10929231 37.5605297,4.71975385 37.5605297,6.23975385 C37.5605297,7.80775385 36.1621398,8.84898462 34.2857415,8.84898462 C32.7214619,8.84898462 31.2874364,8.19052308 30.8450636,6.74190769"
+                        id="Fill-20"
+                      ></path>
+                    </g>
+                    <g id="Four" transform="translate(72.500000, 0.000000)">
+                      <path
+                        d="M12.1356398,5.85144615 L12.1356398,3.07729231 C12.1356398,2.03113846 11.2373771,1.43544615 10.2162331,1.43544615 C9.39047034,1.43544615 8.35826695,1.8736 8.35826695,3.11421538 L8.35826695,5.88713846 C8.35826695,6.93452308 9.25775847,7.53021538 10.2776737,7.53021538 C11.1034364,7.53021538 12.1356398,7.09206154 12.1356398,5.85144615 M6.75466525,5.97329231 L6.75466525,3.19913846 C6.75466525,1.14252308 8.50449576,0.000369230769 10.2162331,0.000369230769 C12.0987754,0.000369230769 13.7392415,1.22867692 13.7392415,3.16221538 L13.7392415,5.76652308 C13.7392415,7.82190769 11.989411,8.96652308 10.2776737,8.96652308 C8.39513136,8.96652308 6.75466525,7.90806154 6.75466525,5.97329231"
+                        id="Fill-7"
+                      ></path>
+                      <path
+                        d="M14.9828008,5.83433846 L14.9828008,0.153107692 L16.5986907,0.153107692 L16.5986907,5.63987692 C16.5986907,6.71064615 17.1086483,7.50203077 18.3718686,7.50203077 C19.5503008,7.50203077 20.1450466,6.88172308 20.1450466,5.63987692 L20.1450466,0.153107692 L21.7609364,0.153107692 L21.7609364,5.71249231 C21.7609364,7.78141538 20.3883517,8.96049231 18.3718686,8.96049231 C16.3553856,8.96049231 14.9828008,7.91556923 14.9828008,5.83433846"
+                        id="Fill-10"
+                      ></path>
+                      <path
+                        d="M26.3002966,4.20886154 C27.2341949,4.20886154 27.8522881,3.75963077 27.8522881,2.86116923 C27.8522881,1.84086154 27.1727542,1.51347692 26.2757203,1.51347692 L24.6880932,1.51347692 L24.6880932,4.20886154 L26.3002966,4.20886154 Z M23.074661,0.153476923 L26.4944492,0.153476923 C28.1189407,0.153476923 29.4276271,1.09993846 29.4276271,2.87347692 C29.4276271,3.90486154 28.8832627,4.97316923 27.7183475,5.38670769 L29.8650847,8.81193846 L28.1066525,8.81193846 L26.0815678,5.56886154 L24.6880932,5.56886154 L24.6880932,8.81193846 L23.074661,8.81193846 L23.074661,0.153476923 Z"
+                        id="Fill-12"
+                      ></path>
+                      <polygon
+                        id="Fill-6"
+                        points="0.227207627 0.153107692 0.227207627 8.81156923 1.85169915 8.81156923 1.85169915 5.16849231 5.43983475 5.16849231 5.43983475 3.75926154 1.85169915 3.75926154 1.85169915 1.57341538 6.03458051 1.57341538 6.03458051 0.153107692"
+                      ></polygon>
+                    </g>
+                    <g id="FWI">
+                      <polygon
+                        id="Fill-32"
+                        points="61.3644915 30.8829538 70.1382203 30.8829538 70.1382203 0.154338462 61.3644915 0.154338462"
+                      ></polygon>
+                      <g id="W" transform="translate(20.889831, 0.000000)">
+                        <polygon
+                          id="Fill-3"
+                          opacity="0.5"
+                          points="23.7948686 30.8834462 31.6875381 0.154830769 40.4747839 0.154830769 32.5808856 30.8834462"
+                        ></polygon>
+                        <polygon
+                          id="Fill-35"
+                          points="32.5813771 30.8834462 24.6887076 0.154830769 15.9014619 0.154830769 23.7953602 30.8834462"
+                        ></polygon>
+                        <polygon
+                          id="Fill-1"
+                          opacity="0.5"
+                          points="8.0079322 30.8834462 15.9006017 0.154830769 24.6878475 0.154830769 16.7939492 30.8834462"
+                        ></polygon>
+                        <polygon
+                          id="Fill-34"
+                          points="16.7944407 30.8834462 8.90177119 0.154830769 0.114525424 0.154830769 8.00842373 30.8834462"
+                        ></polygon>
+                      </g>
+                      <polygon
+                        id="Fill-33"
+                        points="21.0047246 7.89366154 21.0047246 0.154584615 2.51230932 0.154584615 2.51230932 0.154584615 -0.00061440678 0.154584615 -0.00061440678 30.8832 8.77434322 30.8832 8.77434322 20.5681231 21.0047246 20.5681231 21.0047246 12.8290462 8.77434322 12.8290462 8.77434322 7.89366154"
+                      ></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+
+            <div class="network-status network-status__disconnected">
+              <span></span>
+            </div>
+          </div>
+
+          <!-- Settings Sidebar Nav -->
+          <ul>
+            <li
+              data-remote-page-index="y"
+              class="current_tab remote_selection setting_deploy"
+              data-setting="setting_deploy"
+            >
+              <span>Deployment</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="require_deploy setting_software"
+              data-setting="setting_software"
+            >
+              <span>Software</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="require_deploy setting_hardware"
+              data-setting="setting_hardware"
+            >
+              <span>Hardware</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="require_deploy setting_monitoring"
+              data-setting="setting_monitoring"
+            >
+              <span>Monitoring</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="setting_advanced"
+              data-setting="setting_advanced"
+            >
+              <span>Advanced</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="setting_about"
+              data-setting="setting_about"
+            >
+              <span>About</span>
+            </li>
+            <li
+              data-remote-page-index="y"
+              class="require_deploy setting_last bottom setting_exit"
+            >
+              <span>Exit</span>
+            </li>
+          </ul>
+          <p class="settings_clock">
+            <span class="device_time_value"></span>
+          </p>
+        </div>
+
+        <!-- Settings Sidebar Tabs -->
+        <div
+          data-remote-page-index="y"
+          class="settings_content active"
+          data-setting="setting_deploy"
+        >
+          <div class="setting_group deploy_url_group">
+            <div class="sub_content_title">
+              <h1>Deployment URL</h1>
+            </div>
+
+            <div class="settings_row">
+              <div class="fwi_input_group full">
+                <input
+                  data-remote-index="y"
+                  id="fwi_link"
+                  class="player_url"
+                  name="player_url"
+                  value=""
+                  placeholder="http://example.com"
+                  type="text"
+                />
+              </div>
+              <div class="status_msg icon_fail">
+                <span class="deploy_url_message"></span>
+              </div>
+            </div>
+
+            <div class="deploy_creds">
+              <div class="sub_content_title">
+                <h1>Authentication</h1>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url_user require_auth_toggle"
+                    name="player_url_user"
+                    value=""
+                    placeholder="username"
+                    type="text"
+                  />
+                </div>
+                <div class="status_msg">
+                  <span class="deploy_auth_message"></span>
+                </div>
+              </div>
+              <div class="settings_row">
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    class="player_url_pass require_auth_toggle"
+                    name="player_url_pass"
+                    value=""
+                    placeholder="password"
+                    type="password"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="settings_row">
+              <div class="fwi_button_group">
+                <button
+                  data-remote-index="y"
+                  id="deploy_verify"
+                  class="deploy_verify"
+                >
+                  <span>Verify</span>
+                </button>
+              </div>
+              <div class="status_msg success">
+                <p class="deploy_messages"></p>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+          <div class="dev_items">
+            <div class="settings_row">
+              <a
+                data-remote-index="y"
+                href="#"
+                class="signin_btn_lower smaller btn_consoleclear"
+                >Clear Console</a
+              >
+              <a
+                data-remote-index="y"
+                href="#"
+                class="signin_btn_lower smaller btn_reload"
+                >Reload Shim</a
+              >
+              <a
+                data-remote-index="y"
+                href="#"
+                class="signin_btn_lower smaller btn_reboot"
+                >Reboot</a
+              >
+            </div>
+            <div class="settings_row">
+              <div class="wrap_pm settings_scrollable" data-remote-index="y">
+                <div class="post_messages"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          data-remote-page-index="y"
+          class="settings_content"
+          data-setting="setting_software"
+        >
+          <div class="setting_group setting_software_access_code">
+            <div class="settings_row">
+              <div class="access_code">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    class="btn set_access_code code_is_not_set"
+                    data-modal="modal_1"
+                  >
+                    <span>Add Access Code</span>
+                  </button>
+                  <button
+                    data-remote-index="y"
+                    class="btn change_access_code code_is_set"
+                    data-modal="modal_1"
+                  >
+                    <span>Change Access Code</span>
+                  </button>
+                  <button
+                    data-remote-index="y"
+                    class="btn remove_access_code code_is_set"
+                    data-modal="modal_1"
+                  >
+                    <span>Remove</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="setting_group setting_software_url">
+            <div class="sub_content_title">
+              <h1>Software update URL</h1>
+            </div>
+
+            <div class="settings_row">
+              <div class="fwi_input_group full">
+                <div class="url_picker">
+                  <input
+                    value=""
+                    data-remote-index="y"
+                    data-unfocus-validate="url"
+                    type="text"
+                    placeholder="http://example.com"
+                    name="software_updates_url"
+                  />
+                </div>
+              </div>
+              <div class="status_msg icon_fail">
+                <span class="software_url_message"></span>
+              </div>
+            </div>
+
+            <div class="settings_row">
+              <div class="fwi_button_group">
+                <button
+                  data-remote-index="y"
+                  class="software_updates_url_verify"
+                >
+                  <span>Verify</span>
+                </button>
+              </div>
+              <div class="status_msg success">
+                <p class="software_url_verify_message"></p>
+              </div>
+            </div>
+
+            <div class="settings_row">
+              <div class="setting_enabler">
+                <label
+                  data-remote-index="y"
+                  disabled
+                  for="software_updates_enable"
+                  class="require_verify checkbox_label"
+                >
+                  <input
+                    type="checkbox"
+                    disabled
+                    name="software_updates_enable"
+                    value="1"
+                    class="require_verify"
+                    id="software_updates_enable"
+                  />
+                  <span>Check for device software updates at</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="settings_row">
+              <div class="time_picker hour_minute software_updates_time">
+                <div class="fwi_input_group numbers">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    value="0"
+                    disabled
+                    readonly
+                    name="software_updates_hour1"
+                    class="require_enable time_digit digit_0_1"
+                  />
+                </div>
+                <div class="fwi_input_group numbers">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    value="2"
+                    disabled
+                    readonly
+                    name="software_updates_hour2"
+                    class="require_enable time_digit digit_1_9"
+                  />
+                </div>
+                <span class="semi">:</span>
+                <div class="fwi_input_group numbers">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    value="0"
+                    disabled
+                    readonly
+                    name="software_updates_minute1"
+                    class="require_enable time_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    value="0"
+                    disabled
+                    readonly
+                    name="software_updates_minute2"
+                    class="require_enable time_digit digit_1_9"
+                  />
+                </div>
+
+                <div class="fwi_switch_group">
+                  <label
+                    data-remote-index="y"
+                    disabled
+                    class="switch require_enable software_updates_ampm_switch"
+                  >
+                    <input
+                      class="switch-input setting_software_ampm require_enable"
+                      disabled
+                      name="software_updates_ampm"
+                      value="1"
+                      type="checkbox"
+                    />
+                    <span
+                      class="switch-label"
+                      data-on="AM"
+                      data-off="PM"
+                    ></span>
+                    <span class="switch-handle"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings_row">
+              <div class="fwi_button_group">
+                <button
+                  data-remote-index="y"
+                  disabled
+                  class="software_updates_url_checknow require_verify"
+                >
+                  <span>Update Software</span>
+                </button>
+              </div>
+              <div class="status_msg success">
+                <p class="software_update_message hide_status_msg"></p>
+                <p class="software_timestamp function_timestamp"></p>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <!-- Tab Modals -->
+          <div class="modal_bg">
+            <div class="access_code_set_modal is_modal modal_1">
+              <h2>Add Access Code</h2>
+              <p class="modal_help_txt">Please use numbers 0-9 only</p>
+              <div class="modal_settings_row">
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    name="access_code1"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code2"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code3"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code4"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code5"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code6"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+                <div class="fwi_input_group numbers large">
+                  <input
+                    data-remote-index="y"
+                    type="number"
+                    disabled
+                    name="access_code7"
+                    readonly
+                    class="modal_access_digit digit_1_9"
+                  />
+                </div>
+              </div>
+
+              <div class="modal_settings_row">
+                <div class="fwi_button_group">
+                  <button data-remote-index="y" class="access_code_clear">
+                    <span>Clear All</span>
+                  </button>
+                  <button data-remote-index="y" class="access_code_cancel">
+                    <span>Cancel</span>
+                  </button>
+                  <button
+                    data-remote-index="y"
+                    class="access_code_done color_riverbed"
+                  >
+                    <span>Done</span>
+                  </button>
+                </div>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+
+            <div class="access_code_remove_modal is_modal modal_2">
+              <h2>Remove Access Code</h2>
+              <div class="modal_settings_row">
+                <div class="fwi_button_group">
+                  <button data-remote-index="y" class="access_code_cancel">
+                    <span>Cancel</span>
+                  </button>
+                  <button
+                    data-remote-index="y"
+                    class="access_code_remove color_riverbed"
+                  >
+                    <span>Remove</span>
+                  </button>
+                </div>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+
+            <div class="software_update_now_modal is_modal modal_3">
+              <h2>Update Software Now?</h2>
+              <p class="modal_help_txt">This action cannot be undone.</p>
+              <div class="modal_settings_row">
+                <div class="fwi_button_group">
+                  <button data-remote-index="y" class="software_cancel">
+                    <span>Cancel</span>
+                  </button>
+                  <button
+                    data-remote-index="y"
+                    class="software_upgrade color_riverbed"
+                  >
+                    <span>Update</span>
+                  </button>
+                </div>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          data-remote-page-index="y"
+          class="settings_content"
+          data-setting="setting_hardware"
+        >
+          <div class="settings_scroll">
+            <div class="hardware_orientation_section">
+              <div class="setting_group setting_hardware_orientation">
+                <div class="settings_row">
+                  <p>Orientation</p>
+                  <div class="fwi_button_group">
+                    <button data-remote-index="y" class="hardware_orientation">
+                      <span>Rotate 90°</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <hr />
+            </div>
+
+            <div class="setting_group setting_hardware_reboot">
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    for="hardware_reboot_enable"
+                    class="checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      name="hardware_reboot_enable"
+                      value="1"
+                      class="hardware_reboot_enable"
+                      id="hardware_reboot_enable"
+                    />
+                    <span>Reboot daily at random time starting at:</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="time_picker hour_minute  hardware_reboot_time">
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_reboot_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="2"
+                      disabled
+                      readonly
+                      name="hardware_reboot_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_reboot_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_reboot_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+
+                  <div class="fwi_switch_group">
+                    <label
+                      data-remote-index="y"
+                      disabled
+                      class="switch require_enable hardware_reboot_ampm_switch"
+                    >
+                      <input
+                        class="switch-input setting_hardware_reboot_ampm require_enable"
+                        disabled
+                        name="hardware_reboot_ampm"
+                        value="1"
+                        type="checkbox"
+                      />
+                      <span
+                        class="switch-label"
+                        data-on="AM"
+                        data-off="PM"
+                      ></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <label class="helper-label reboot-helper">Rebooting daily between <span class="reboot-start-window">XX:xx</span> and <span class="reboot-end-window">XX:xx</span></label>
+            </div>
+
+            <hr />
+
+            <div class="setting_group setting_firmware_update">
+              <div class="sub_content_title">
+                <h1>Hardware firmware update URL</h1>
+              </div>
+              <div class="settings_row">
+                <div class="fwi_input_group full">
+                  <div class="url_picker">
+                    <input
+                      value=""
+                      data-remote-index="y"
+                      data-unfocus-validate="url"
+                      type="text"
+                      placeholder="http://example.com"
+                      name="firmware_updates_url"
+                    />
+                  </div>
+                </div>
+                <div class="status_msg icon_fail">
+                  <span class="firmware_url_message"></span>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    class="hardware_firmware_url_verify"
+                  >
+                    <span>Verify</span>
+                  </button>
+                </div>
+                <div class="status_msg success">
+                  <p class="firmware_update_message"></p>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    disabled
+                    for="hardware_firmware_enable"
+                    class="require_verify checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      disabled
+                      name="hardware_firmware_enable"
+                      value="1"
+                      class="require_verify"
+                      id="hardware_firmware_enable"
+                    />
+                    <span>Check for updates daily at</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings_row hardware_firmware_time">
+                <div
+                  class="time_picker hour_minute hardware_firmware_time_picker"
+                >
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_firmware_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="2"
+                      disabled
+                      readonly
+                      name="hardware_firmware_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_firmware_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="hardware_firmware_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+
+                  <div class="fwi_switch_group">
+                    <label
+                      data-remote-index="y"
+                      disabled
+                      class="switch require_enable hardware_firmware_ampm_switch"
+                    >
+                      <input
+                        class="switch-input setting_hardware_firmware_ampm require_enable"
+                        disabled
+                        name="hardware_firmware_ampm"
+                        value="1"
+                        type="checkbox"
+                      />
+                      <span
+                        class="switch-label"
+                        data-on="AM"
+                        data-off="PM"
+                      ></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    disabled
+                    class="hardware_firmware_url_checknow require_verify"
+                  >
+                    <span>Update Firmware</span>
+                  </button>
+                </div>
+              </div>
+              <div class="settings_row">
+                <p class="firmware_timestamp function_timestamp"></p>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="setting_group setting_hardware_hdmi_mode block-reset" id="hdmi_mode_group">
+              <div class="sub_content_title block-reset">
+                <h1 class="block-reset">Device Control</h1>
+              </div>
+
+              <div class="block-reset helper-label" style="visibility: visible;margin:20px 40px;">
+                Select Method to turn display on and off.
+              </div>
+
+              <div class="settings_row block-reset" style="display: flex !important;margin:40px">
+
+
+                <label 
+                for="cec_mode" 
+                class="checkbox_label radio hdmi_mode_label checkbox_label_checked" 
+                data-remote-index="y"
+                id="cec_mode_hdmi"
+              >
+                <input type="radio" name="cec_mode" id="input_cec_mode_hdmi" checked>
+                <span>HDMI Signal</span>
+              </label>
+
+                <label 
+                  for="cec_mode" 
+                  class="checkbox_label radio  hdmi_mode_label" 
+                  data-remote-index="y"
+                  id="cec_mode_display"
+                >
+                  <input type="radio" name="cec_mode" id="input_cec_mode_display" >
+                  <span>HDMI-CEC</span>
+                </label>
+              </div>
+
+              <div class="block-reset helper-label" style="visibility:visible;margin:20px 0 20px 40px;width:auto;" id="cec-warning">
+                <span style="font-style:italic">Note: behavior may differ if the device is not CEC-compatible.</span>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="setting_group setting_hardware_timers">
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    for="hardware_timers_enable"
+                    class="require_verify checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      name="hardware_timers_enable"
+                      value="1"
+                      class="require_verify"
+                      id="hardware_timers_enable"
+                    />
+                    <span>Display On/Off Timers</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    disabled
+                    class="require_enable hardware_timer_create"
+                  >
+                    <span>Create Timer</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="setting_sub_group setting_hardware_timer_list">
+                <div class="hardware_timers">
+                  <div class="fwi_row table_timers">
+                    <div class="table_timers_row _headerRow">
+                      <div class="table_timers_column _days">
+                        <p>DAYS</p>
+                      </div>
+                      <div class="table_timers_column _durations">
+                        <p>SCREEN ON DURING</p>
+                      </div>
+                      <div class="table_timers_column _stats"></div>
+                      <div class="table_timers_column _buttons"></div>
+                    </div>
+                    <div class="table_timers_list"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Modals -->
+          <div class="modal_bg">
+            <div class="hardware_timer_create_modal is_modal">
+              <h2>Create Timer</h2>
+
+              <div class="modal_settings_row" id="timer_type_row">
+                <label 
+                    for="timer_type" 
+                    class="checkbox_label radio timer_type_label" 
+                    data-remote-index="y"
+                    id="timer_daily_label"
+                >
+                  <input type="radio" name="timer_type" id="timer_daily">
+                  <span>Daily</span>
+                </label>
+
+                <label 
+                  for="timer_type" 
+                  class="checkbox_label radio timer_type_label" 
+                  data-remote-index="y"
+                  id="timer_custom_label"
+                >
+                  <input type="radio" name="timer_type" id="timer_custom">
+                  <span>Custom</span>
+                </label>
+              </div>
+
+              <div class="modal_settings_row" >
+                <div class="timer_days">
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_sun"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_sun"
+                        value="64"
+                      />
+                      <span>Sun</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_mon"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_mon"
+                        value="1"
+                      />
+                      <span>Mon</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_tue"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_tue"
+                        value="2"
+                      />
+                      <span>Tue</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_wed"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_wed"
+                        value="4"
+                      />
+                      <span>Wed</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_thu"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_thu"
+                        value="8"
+                      />
+                      <span>Thu</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_fri"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_fri"
+                        value="16"
+                      />
+                      <span>Fri</span>
+                    </label>
+                  </span>
+                  <span>
+                    <label
+                      data-remote-index="y"
+                      for="hardware_timer_sat"
+                      class="checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="hardware_timer_days[]"
+                        id="hardware_timer_sat"
+                        value="32"
+                      />
+                      <span>Sat</span>
+                    </label>
+                  </span>
+                </div>
+              </div>
+              <div class="modal_settings_row">
+                <div class="timer_power_on">
+                  <div class="time_picker hour_minute hardware_time_onoff">
+                    <h2>Turn Power On</h2>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_on_hour1"
+                        class="require_enable time_digit digit_0_1"
+                      />
+                    </div>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="2"
+                        readonly
+                        name="hardware_timer_on_hour2"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+                    <span class="semi">:</span>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_on_minute1"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_on_minute2"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+
+                    <div class="fwi_switch_group">
+                      <label
+                        data-remote-index="y"
+                        class="switch hardware_timer_on_ampm_switch"
+                      >
+                        <input
+                          class="switch-input setting_hardware_timer_on_ampm"
+                          name="hardware_timer_on_ampm"
+                          value="1"
+                          type="checkbox"
+                        />
+                        <span
+                          class="switch-label"
+                          data-on="AM"
+                          data-off="PM"
+                        ></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal_settings_row">
+                <div class="timer_power_off">
+                  <div class="time_picker hour_minute hardware_time_onoff">
+                    <h2>Turn Power Off</h2>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_off_hour1"
+                        class="require_enable time_digit digit_0_1"
+                      />
+                    </div>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="2"
+                        readonly
+                        name="hardware_timer_off_hour2"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+                    <span class="semi">:</span>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_off_minute1"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+                    <div class="fwi_input_group numbers">
+                      <input
+                        data-remote-index="y"
+                        type="number"
+                        value="0"
+                        readonly
+                        name="hardware_timer_off_minute2"
+                        class="require_enable time_digit digit_1_9"
+                      />
+                    </div>
+
+                    <div class="fwi_switch_group">
+                      <label
+                        data-remote-index="y"
+                        class="switch hardware_timer_off_ampm_switch"
+                      >
+                        <input
+                          class="switch-input setting_hardware_timer_off_ampm"
+                          name="hardware_timer_off_ampm"
+                          value="1"
+                          type="checkbox"
+                        />
+                        <span
+                          class="switch-label"
+                          data-on="AM"
+                          data-off="PM"
+                        ></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal_settings_row">
+                <div class="timer_power_submit">
+                  <div class="fwi_button_group">
+                    <button data-remote-index="y" class="hardware_time_cancel">
+                      <span>Cancel</span>
+                    </button>
+                    <button
+                      data-remote-index="y"
+                      class="hardware_time_done color_riverbed"
+                    >
+                      <span>Create</span>
+                    </button>
+                  </div>
+                  <div class="status_msg success">
+                    <p class="timer_power_message"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hardware_timer_remove_modal is_modal">
+              <div class="modal_settings_row">
+                <div class="fwi_button_group">
+                  <h2>Remove Timer</h2>
+                  <div class="fwi_button_group">
+                    <button data-remote-index="y" class="hardware_time_cancel">
+                      <span>Cancel</span>
+                    </button>
+                    <button
+                      data-remote-index="y"
+                      class="hardware_time_remove_confirm color_riverbed"
+                    >
+                      <span>Remove</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          data-remote-page-index="y"
+          class="settings_content"
+          data-setting="setting_monitoring"
+        >
+          <div class="settings_scroll wrap_advanced">
+            <p class="monitor_disabled">
+              Connect to FWI Services in the “Advanced” tab to enable these
+              settings
+            </p>
+
+            <div class="setting_group setting_adv_logs">
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    for="monitor_logs_daily_enable"
+                    disabled
+                    class="require_advanced checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      name="monitor_logs_daily_enable"
+                      value="1"
+                      class="monitor_logs_daily_enable"
+                      id="monitor_logs_daily_enable"
+                    />
+                    <span
+                      >Upload software logs at a random time in the window
+                      below</span
+                    >
+                  </label>
+                </div>
+              </div>
+              <div class="settings_row">
+                <p>Window Begin</p>
+              </div>
+              <div class="settings_row">
+                <div class="time_picker hour_minute monitor_logs_time1">
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="1"
+                      disabled
+                      readonly
+                      name="monitor_logs1_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="2"
+                      disabled
+                      readonly
+                      name="monitor_logs1_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_logs1_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_logs1_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_switch_group">
+                    <label
+                      data-remote-index="y"
+                      disabled
+                      class="switch require_enable monitor_logs1_ampm_switch"
+                    >
+                      <input
+                        class="switch-input setting_monitor_logs1_ampm require_enable"
+                        disabled
+                        name="monitor_logs1_ampm"
+                        value="1"
+                        type="checkbox"
+                      />
+                      <span
+                        class="switch-label"
+                        data-on="AM"
+                        data-off="PM"
+                      ></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="settings_row">
+                <p>Window End</p>
+              </div>
+              <div class="settings_row">
+                <div class="time_picker hour_minute monitor_logs_time2">
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_logs2_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="2"
+                      disabled
+                      readonly
+                      name="monitor_logs2_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_logs2_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_logs2_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_switch_group">
+                    <label
+                      data-remote-index="y"
+                      disabled
+                      class="switch require_enable monitor_logs2_ampm_switch"
+                    >
+                      <input
+                        class="switch-input setting_monitor_logs2_ampm require_enable"
+                        disabled
+                        name="monitor_logs2_ampm"
+                        value="1"
+                        type="checkbox"
+                      />
+                      <span
+                        class="switch-label"
+                        data-on="AM"
+                        data-off="PM"
+                      ></span>
+                      <span class="switch-handle"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="status_msg">
+                  <span class="log_window_message"></span>
+                </div>
+              </div>
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    disabled
+                    class="require_advanced monitor_logs_daily_upload"
+                  >
+                    <span>Upload Now</span>
+                  </button>
+                </div>
+                <div class="status_msg success">
+                  <p class="logs_up_message hide_status_msg"></p>
+                  <p class="log_timestamp function_timestamp"></p>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="setting_group setting_adv_status">
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    for="monitor_status_enable"
+                    disabled
+                    class="require_advanced checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      name="monitor_status_enable"
+                      value="1"
+                      class="monitor_status_enable"
+                      id="monitor_status_enable"
+                    />
+                    <span>Upload device status every HH:MM:SS</span>
+                  </label>
+                </div>
+              </div>
+              <div class="settings_row">
+                <div class="time_picker hour_minute monitor_status_time">
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_status_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_status_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_status_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="5"
+                      disabled
+                      readonly
+                      name="monitor_status_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_status_second1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_status_second2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="min_30">minimum<br />30 sec</span>
+                </div>
+              </div>
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    disabled
+                    class="require_advanced monitor_status_upload"
+                  >
+                    <span>Upload Now</span>
+                  </button>
+                </div>
+                <div class="status_msg success">
+                  <p class="status_up_message hide_status_msg"></p>
+                  <p class="status_timestamp function_timestamp"></p>
+                </div>
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="setting_group setting_adv_screenshot">
+              <div class="settings_row">
+                <div class="setting_enabler">
+                  <label
+                    data-remote-index="y"
+                    for="monitor_screenshot_enable"
+                    disabled
+                    class="require_advanced checkbox_label"
+                  >
+                    <input
+                      type="checkbox"
+                      name="monitor_screenshot_enable"
+                      value="1"
+                      class="monitor_screenshot_enable"
+                      id="monitor_screenshot_enable"
+                    />
+                    <span>Upload screenshots every HH:MM:SS</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="time_picker hour_minute monitor_screenshot_time">
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="1"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_hour1"
+                      class="require_enable time_digit digit_0_1"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="2"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_hour2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_minute1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_minute2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="semi">:</span>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_second1"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <div class="fwi_input_group numbers">
+                    <input
+                      data-remote-index="y"
+                      type="number"
+                      value="0"
+                      disabled
+                      readonly
+                      name="monitor_screenshot_second2"
+                      class="require_enable time_digit digit_1_9"
+                    />
+                  </div>
+                  <span class="min_30">minimum<br />30 sec</span>
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    disabled
+                    class="require_advanced monitor_screenshot_upload"
+                  >
+                    <span>Upload Now</span>
+                  </button>
+                </div>
+                <div class="status_msg success">
+                  <p class="screenshot_message hide_status_msg"></p>
+                  <p class="screenshot_timestamp function_timestamp"></p>
+                </div>
+              </div>
+              <div class="recent_screenshot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          data-remote-page-index="y"
+          class="settings_content"
+          data-setting="setting_advanced"
+        >
+          <div class="settings_scroll">
+            <div class="settings_group advanced_setting_group">
+              <div class="settings_row ">
+                <p>
+                  <label style="line-height: 1.2;">FWI Services URL</label>
+                </p>
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    type="text"
+                    class="require_enable"
+                    name="advanced_connect_fwi_host"
+                    placeholder="FWI Services URL"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div class="settings_row ">
+                <p>
+                  <label>Company</label>
+                </p>
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    type="text"
+                    class="require_enable"
+                    name="advanced_connect_fwi_comp"
+                    placeholder="Company"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div class="settings_row ">
+                <p>
+                  <label>Username</label>
+                </p>
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    type="text"
+                    class="require_enable"
+                    name="advanced_connect_fwi_user"
+                    placeholder="Username"
+                    value=""
+                  />
+                </div>
+              </div>
+              <div class="settings_row ">
+                <p>
+                  <label>Password</label>
+                </p>
+                <div class="fwi_input_group full">
+                  <input
+                    data-remote-index="y"
+                    type="password"
+                    class="require_enable"
+                    name="advanced_connect_fwi_pass"
+                    placeholder="Password"
+                    value=""
+                  />
+                </div>
+              </div>
+
+              <div class="settings_row">
+                <div class="fwi_button_group">
+                  <button
+                    data-remote-index="y"
+                    class="require_enable advanced_connect_fwi_test"
+                  >
+                    <span>Verify & Save</span>
+                  </button>
+                </div>
+                <div class="status_msg success">
+                  <p class="soap_msg"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="time_section">
+              <hr />
+
+              <!-- Time section. -->
+              <div class="settings_group advanced_setting_group">
+                <div class="sub_content_title">
+                  <h1 id="advanced_time_zone">Time Zone</h1>
+                </div>
+
+                <div class="settings_row">
+                  <div class="fwi_input_group fwi_dropdown full">
+                    <div data-remote-index="y" class="time_zone">
+                      <p>
+                        <span id="fwi_timezone" style="float:left;">MST</span>
+                      </p>
+                      <span style="float:right;">&#9660;</span>
+                    </div>
+                  </div>
+                </div>
+
+                <hr />
+
+                <div class="sub_content_title">
+                  <h1 id="advanced_time_server">Time Server</h1>
+                </div>
+
+                <div class="settings_row">
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      id="fwi_timeServer"
+                      class="time_server"
+                      name="time_server"
+                      value=""
+                      placeholder=""
+                      type="text"
+                    />
+                  </div>
+                  <div class="status_msg icon_fail">
+                    <span class="advanced_time_server_message"></span>
+                  </div>
+                </div>
+
+                <div class="settings_row">
+                  <div class="fwi_button_group">
+                    <button data-remote-index="y" class="advanced_time_test">
+                      <span>Verify &amp; Save</span></button
+                    ><!-- FIXME KJO Localize! -->
+                  </div>
+                  <div class="status_msg success">
+                    <p class="time_test_msg"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time zone selection modal dialog. -->
+            <div class="modal_bg">
+              <div class="time_zone_modal is_modal modal_4">
+                <h2>Time Zone</h2>
+                <div class="time_zone_options">
+                  <ul></ul>
+                </div>
+
+                <div class="modal_settings_row">
+                  <div class="modal_message"><p></p></div>
+                  <div class="fwi_button_group">
+                    <button data-remote-index="y" class="time_zone_cancel">
+                      <span>Cancel</span>
+                    </button>
+                    <button
+                      data-remote-index="y"
+                      class="time_zone_done color_riverbed carl"
+                    >
+                      <span>Select & Reboot</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="static_ip_section">
+              <hr />
+              <!-- Static IP address section. -->
+              <div class="settings_group advanced_setting_group">
+                <div class="settings_row">
+                  <div class="setting_enabler">
+                    <label
+                      data-remote-index="y"
+                      for="advanced_enable_static_ip"
+                      class="require_advanced checkbox_label"
+                    >
+                      <input
+                        type="checkbox"
+                        name="advanced_enable_static_ip"
+                        value="1"
+                        class="advanced_enable_static_ip"
+                        id="advanced_enable_static_ip"
+                      />
+                      <span id="advanced_static_ip_use_static_ip"
+                        >Use a static IP address</span
+                      >
+                    </label>
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label id="advanced_static_ip_ip_address">IP address</label>
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_address"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label id="advanced_static_ip_subnet_mask"
+                      >Subnet mask</label
+                    >
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_subnet_mask"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label id="advanced_static_ip_default_gateway"
+                      >Def. gateway</label
+                    >
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_default_gateway"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label>DNS 1</label>
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_dns_1"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label>DNS 2</label>
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_dns_2"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <p>
+                    <label>DNS 3</label>
+                  </p>
+                  <div class="fwi_input_group full">
+                    <input
+                      data-remote-index="y"
+                      type="text"
+                      class="require_enable"
+                      name="advanced_static_ip_dns_3"
+                      placeholder=""
+                      value=""
+                      maxlength="15"
+                    />
+                  </div>
+                </div>
+                <div class="settings_row">
+                  <div class="fwi_button_group">
+                    <button
+                      data-remote-index="y"
+                      class="require_enable advanced_static_ip_test"
+                    >
+                      <span>Verify &amp; Save</span></button
+                    ><!-- FIXME KJO Localize! -->
+                  </div>
+                  <div class="status_msg success">
+                    <p class="static_ip_test_msg"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          data-remote-page-index="y"
+          class="settings_content settings_about"
+          data-setting="setting_about"
+        >
+          <div class="settings_scroll">
+            <div class="settings_row settings_about_row no-highlight">
+              <div class="setting_group about_platform">
+                <h1>Platform</h1>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>Model</strong>
+                  <span class="modelName">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>Serial Number</strong>
+                  <span class="serialNumber">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>Firmware Version</strong>
+                  <span class="firmwareVersion">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>Hardware Version</strong>
+                  <span class="hardwareVersion">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>SDK Version</strong>
+                  <span class="sdkVersion">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>Manufacturer</strong>
+                  <span class="manufacturer">NOTWORKING</span>
+                </p>
+                <p class="about_row no-highlight version" data-remote-index="y">
+                  <strong>App Version</strong>
+                  <span class="about_app_version">1.9.1</span><span class="build_number">19</span>
+                </p>
+              </div>
+            </div>
+            <hr class="settings_about_separator network" />
+            <div class="settings_row settings_about_row no-highlight">
+              <div class="setting_group about_network">
+                <h1>Network</h1>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>IP Address</strong>
+                  <span class="wired_ip">N/A</span>
+                </p>
+                <p class="about_row no-highlight" data-remote-index="y">
+                  <strong>MAC Address</strong>
+                  <span class="wired_mac">N/A</span>
+                </p>
+              </div>
+            </div>
+            <hr class="settings_about_separator storage" />
+            <div class="settings_row settings_about_row no-highlight">
+              <div class="setting_group about_storage">
+                <h1>Storage</h1>
+                <div
+                  class="about_storage_external no-highlight"
+                  data-remote-index="y"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FullScreen Modal -->
+      <div class="modal_takeover firmware_takeover max_size">
+        <div class="modal_bg">
+          <div class="hardware_firmware_lock_modal is_modal">
+            <div class="firmware_stage firmware-1">
+              <div class="modal_settings_row">
+                <h2>Updating Device Firmware</h2>
+                <p class="firmware_progress_message">
+                  <span class="prog_msg"></span>
+                  <span
+                    >Progress
+                    <span class="prog_bar"
+                      ><span class="prog_bar_dl"></span></span
+                  ></span>
+                </p>
+                <div class="fwi_button_group">
+                  <button data-remote-index="y" class="firmware_upgrade_cancel">
+                    <span>Cancel</span>
+                  </button>
+                </div>
+                <p class="firmware_json"></p>
+                <p class="firmware_cant_cancel">
+                  Please do not unplug or turn off device
+                </p>
+              </div>
+            </div>
+            <div class="firmware_stage firmware-2">
+              <div class="modal_settings_row">
+                <p></p>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+            <div class="firmware_stage b2berrors">
+              <div class="modal_settings_row">
+                <p></p>
+                <div class="modal_message"><p></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <script type="text/javascript" src="main.js"></script></body>
+</html>
